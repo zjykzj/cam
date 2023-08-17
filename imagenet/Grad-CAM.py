@@ -7,10 +7,10 @@
 @description:
 
 Usage - Specify images and model:
-    $ python imagenet/Grad-CAM.py --arch resnet50 dog.jpg
+    $ python imagenet/Grad-CAM.py --arch resnet50 imgs/dog.jpg
 
 Usage - Viewing CAM for a certain category:
-    $ python imagenet/Grad-CAM.py --arch resnet50 --cls-name Norwich_terrier dog.jpg
+    $ python imagenet/Grad-CAM.py --arch resnet50 --cls-name Norwich_terrier imgs/dog.jpg
 
 """
 
@@ -49,6 +49,8 @@ def parse_opt():
     parser.add_argument('--name', default='exp', help='save to project/name')
     parser.add_argument('--cls-name', type=str, default=None,
                         help="View which category Grad-CAM, default to which one has the highest predicted score.")
+    parser.add_argument('--image-weight', type=float, default=0.5,
+                        help='The final result is image_weight * img + (1-image_weight) * mask.')
 
     opt = parser.parse_args()
     return opt
@@ -85,7 +87,7 @@ def data_preprocess(bgr_img, target_size=224):
 
 
 def process(opt):
-    img_path, model_arch, save_dir, cls_name = opt.img, opt.arch, opt.save_dir, opt.cls_name
+    img_path, model_arch, save_dir, cls_name, image_weight = opt.img, opt.arch, opt.save_dir, opt.cls_name, opt.image_weight
 
     # Data
     bgr_img = cv2.imread(opt.img)
@@ -147,7 +149,7 @@ def process(opt):
     cv2.imshow("hmap", hmap)
     cv2.imshow("src", bgr_img)
 
-    grad_cam = np.uint8(bgr_img * 0.7 + hmap * 0.3)
+    grad_cam = np.uint8(bgr_img * image_weight + hmap * (1 - image_weight))
     cv2.imshow(class_name, grad_cam)
     cv2.waitKey(0)
 
