@@ -15,6 +15,8 @@
   <a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg"></a>
 </p>
 
+![](./imgs/cmp.jpg)
+
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
@@ -26,9 +28,13 @@
 
 ## Background
 
-Through CAM (Class Activation Mapping), I can effectively visualize the model's focus on images, helping me better apply them to practical scenarios. 
+Through CAM (Class Activation Mapping), I can effectively visualize the model's focus on images, helping me better apply
+them to practical scenarios.
 
-This warehouse has implemented Grad-CAM (*Weight the 2D activations by the average gradient*). At present, there are many other variants besides CAM and Grad CAM. You can view the usage of [jacobgil/pytorch-grad-cam](https://github.com/jacobgil/pytorch-grad-cam) and [frgfm/torch-cam](https://github.com/frgfm/torch-cam)
+This warehouse has implemented Grad-CAM (*Weight the 2D activations by the average gradient*). At present, there are
+many other variants besides CAM and Grad CAM. You can view the usage
+of [jacobgil/pytorch-grad-cam](https://github.com/jacobgil/pytorch-grad-cam)
+and [frgfm/torch-cam](https://github.com/frgfm/torch-cam)
 
 ## Maintainers
 
