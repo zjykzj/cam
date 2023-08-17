@@ -95,7 +95,6 @@ def process(opt):
     model = eval(opt.arch)(pretrained=True)
     assert isinstance(model, ResNet)
     classes = np.loadtxt('imagenet/imagenet.names', dtype=str, delimiter=' ').tolist()
-    assert cls_name in classes
 
     feature_list = []
     grad_list = []
@@ -118,9 +117,11 @@ def process(opt):
     # Backward
     model.zero_grad()
     if cls_name is not None:
+        assert cls_name in classes
         pred_idx = classes.index(cls_name)
     else:
         pred_idx = torch.argmax(output.detach()[0])
+        cls_name = classes[pred_idx]
     class_name = classes[pred_idx]
     pred_class = output[0, pred_idx]
     pred_class.backward()
@@ -161,6 +162,10 @@ def process(opt):
 
     cam_path = os.path.join(save_dir, f'cam_{class_name}.jpg')
     cv2.imwrite(cam_path, grad_cam)
+
+    cmp = np.concatenate([bgr_img, hmap, grad_cam], axis=1)
+    cmp_path = os.path.join(save_dir, 'cmp.jpg')
+    cv2.imwrite(cmp_path, cmp)
 
 
 def main(opt):
