@@ -15,12 +15,11 @@
   <a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg"></a>
 </p>
 
-![](./imgs/cmp.jpg)
-
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
 - [Background](#background)
+- [Usage](#usage)
 - [Maintainers](#maintainers)
 - [Thanks](#thanks)
 - [Contributing](#contributing)
@@ -35,6 +34,22 @@ This warehouse has implemented Grad-CAM (*Weight the 2D activations by the avera
 many other variants besides CAM and Grad-CAM. You can view the usage
 of [jacobgil/pytorch-grad-cam](https://github.com/jacobgil/pytorch-grad-cam)
 and [frgfm/torch-cam](https://github.com/frgfm/torch-cam)
+
+## Usage
+
+```shell
+# Custom Grad-CAM
+python imagenet/Grad-CAM.py --arch resnet50 imgs/cat.jpg
+```
+
+![](./imgs/cmp.jpg)
+
+```shell
+# jacobgil/pytorch-grad-cam
+python samples/pytorch-grad-cam.py imgs/cat.jpg
+```
+
+![](./imgs/cmp_v2.jpg)
 
 ## Maintainers
 
