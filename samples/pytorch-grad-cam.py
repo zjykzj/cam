@@ -6,7 +6,7 @@
 @author: zj
 @description: https://github.com/jacobgil/pytorch-grad-cam
 """
-
+import numpy as np
 from pytorch_grad_cam import GradCAM, HiResCAM, ScoreCAM, GradCAMPlusPlus, AblationCAM, XGradCAM, EigenCAM, FullGrad
 from pytorch_grad_cam.utils.model_targets import ClassifierOutputTarget
 from pytorch_grad_cam.utils.image import show_cam_on_image
@@ -75,3 +75,6 @@ if __name__ == '__main__':
     cv2.imshow("bgr_img", bgr_img)
     cv2.imshow("visualization", visualization)
     cv2.waitKey(0)
+
+    cmp = np.concatenate([bgr_img, visualization], axis=1)
+    cv2.imwrite("cmp_v2.jpg", cmp)
