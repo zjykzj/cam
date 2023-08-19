@@ -1,10 +1,10 @@
-<!-- <div align="right">
+<div align="right">
   Language:
     🇺🇸
   <a title="Chinese" href="./README.zh-CN.md">🇨🇳</a>
-</div> -->
+</div>
 
- <div align="center"><a title="" href="git@github.com:zjykzj/cam.git"><img align="center" src="./imgs/cam.png"></a></div>
+ <div align="center"><a title="" href="git@github.com:zjykzj/cam.git"><img align="center" src="./imgs/cam.svg"></a></div>
 
 <p align="center">
   «cam» implements Gradient-weighted Class Activation Mapping.
@@ -27,11 +27,9 @@
 
 ## Background
 
-Through CAM (Class Activation Mapping), I can effectively visualize the model's focus on images, helping me better apply
-them to practical scenarios.
+Through CAM (Class Activation Mapping), I can effectively visualize the model's focus on images, helping me better apply them to practical scenarios.
 
-This warehouse has implemented Grad-CAM (*Weight the 2D activations by the average gradient*). At present, there are
-many other variants besides CAM and Grad-CAM. You can view the usage
+This warehouse has implemented Grad-CAM (*Weight the 2D activations by the average gradient*). At present, there are many other variants besides CAM and Grad-CAM. You can view the usage
 of [jacobgil/pytorch-grad-cam](https://github.com/jacobgil/pytorch-grad-cam)
 and [frgfm/torch-cam](https://github.com/frgfm/torch-cam)
 
