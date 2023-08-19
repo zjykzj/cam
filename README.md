@@ -61,7 +61,7 @@ python samples/pytorch-grad-cam.py imgs/cat.jpg
 
 ## Contributing
 
-Anyone's participation is welcome! Open an [issue](https://github.com/jacobgil/pytorch-grad-cam/issues) or submit PRs.
+Anyone's participation is welcome! Open an [issue](https://github.com/zjykzj/cam/issues) or submit PRs.
 
 Small note:
 
