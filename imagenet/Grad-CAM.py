@@ -8,6 +8,7 @@
 
 Usage - Specify images and model:
     $ python imagenet/Grad-CAM.py --arch resnet50 imgs/dog.jpg
+    $ python imagenet/Grad-CAM.py --arch mobilenet_v2 imgs/dog.jpg
 
 Usage - Viewing CAM for a certain category:
     $ python imagenet/Grad-CAM.py --arch resnet50 --cls-name Norwich_terrier imgs/dog.jpg
@@ -27,6 +28,7 @@ import torch
 import torchvision.transforms as transforms
 import torchvision.models as models
 from torchvision.models.resnet import ResNet, resnet18, resnet34, resnet50, resnet101, resnet152
+from torchvision.models.mobilenet import MobileNetV2, MobileNetV3, mobilenet_v2, mobilenet_v3_large, mobilenet_v3_small
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
@@ -37,6 +39,8 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
 def parse_opt():
     model_names = sorted(name for name in models.resnet.__dict__ if name.islower() and name.startswith('resnet'))
+    model_names += sorted(
+        name for name in models.mobilenet.__dict__ if name.islower() and name.startswith('mobilenet_'))
     # print(model_names)
 
     parser = argparse.ArgumentParser()
@@ -95,7 +99,6 @@ def process(opt):
 
     # Model
     model = eval(opt.arch)(pretrained=True)
-    assert isinstance(model, ResNet)
     classes = np.loadtxt('imagenet/imagenet.names', dtype=str, delimiter=' ').tolist()
 
     feature_list = []
@@ -107,8 +110,14 @@ def process(opt):
     def forward_hook(module, input, output):
         feature_list.append(output.detach().clone().cpu())
 
-    model.layer4[-1].register_forward_hook(forward_hook)
-    model.layer4[-1].register_backward_hook(backward_hook)
+    if isinstance(model, ResNet):
+        model.layer4[-1].register_forward_hook(forward_hook)
+        model.layer4[-1].register_backward_hook(backward_hook)
+    elif isinstance(model, (MobileNetV2, MobileNetV3)):
+        model.features[-1].register_forward_hook(forward_hook)
+        model.features[-1].register_backward_hook(backward_hook)
+    else:
+        pass
 
     # Pred
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
