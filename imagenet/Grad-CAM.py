@@ -153,6 +153,8 @@ def process(opt):
     print(hmap)
     # cv2.imshow("hmap src", hmap)
     hmap = cv2.resize(hmap, (bgr_img.shape[1], bgr_img.shape[0]))
+    # See https://docs.opencv.org/3.4/d3/d50/group__imgproc__colormap.html
+    # From blue to red
     hmap = cv2.applyColorMap(hmap, cv2.COLORMAP_JET)
 
     cv2.imshow("hmap", hmap)
